@@ -12,11 +12,7 @@ Functionality:
 
 ## Who is the target audience?
 
-The nature of this application makes it an ideal solution both for personal traders who wish to negate any disadvantage they may otherwise suffer for having a regular job in conjunction with their trading endeavours, or for large asset management companies such as Fidelity investments, many of whom have for a long time been involved with Forex trading, but have just recently become involved with cryptocurrency trading.
-
-This application will make it easier for such companies to manage large trade decisions across multiple markets automatically. Decisions will consider current sentiment, previous price, technical analysis, and have a prediction from a machine learning module reaffirming them. 
-
-Using this application, the company will also be afforded the ability to gauge the health of each individual portfolio using the data visualisation functionality, to immediately conceptualise the data rather than having to keep a log of performance metrics themselves, which would be an unnecessary waste, both of employee time, and of storage space.
+The nature of this application makes it an ideal solution for personal traders who wish to negate any disadvantage they may otherwise suffer for having a regular job in conjunction with their trading endeavours.
 
 ## This project
 This Repo has been established in order to document the development process of the above described application, as part of the CA400 final year project. 

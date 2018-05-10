@@ -22,8 +22,7 @@ Using this application, the company will also be afforded the ability to gauge t
 This Repo has been established in order to document the development process of the above described application, as part of the CA400 final year project. 
 
 ## Screenshots
-![Dashboard](http://i67.tinypic.com/23mafsx.jpg)
-![trading page](http://i68.tinypic.com/bitpbn.jpg)
-![Machine learning backtesting](http://i67.tinypic.com/33m5q53.jpg)
-![Chart Analysis](http://i66.tinypic.com/2cmoe94.jpg)
+![trading page](http://i65.tinypic.com/okrght.jpg)
+![Machine learning backtesting](http://i64.tinypic.com/acbe3k.jpg)
+![Chart Analysis](http://i63.tinypic.com/2hweemx.jpg)
 ![Android Application](http://i64.tinypic.com/2zp15d2.png)

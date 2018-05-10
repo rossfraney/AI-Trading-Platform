@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:social="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Braikout Login</title>
+    <script src="https://use.fontawesome.com/a51214a446.js"></script>
+</head>
+<body>
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/style.css'%}" />
+<link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Carme" rel="stylesheet">
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class ="container-fluid">
+        <!-- logo -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#topNavBar"  aria-controls="#topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+            </button>
+            <a class="navbar-brand" href="{% url 'dashboard:index' %}"><span class="glyphicons glyphicons-lightbulb"></span>Braikout &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a class="navbar-brand" id="btcprice" href="{% url 'dashboard:index' %}">BTC: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            <a class="navbar-brand" id="ethprice" href="{% url 'dashboard:index' %}">ETH: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            <a class="navbar-brand" id="ltcprice" href="{% url 'dashboard:index' %}">LTC: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            <a class="navbar-brand" id="eurprice" href="{% url 'dashboard:index' %}">EUR: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+        </div>
+    </div>
+</nav>
+<!--{% load crispy_forms_tags %}-->
+
+
+<!--<div id="authform">-->
+    <!--<h1> Welcome To Braikout! Please Register Below </h1>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<form method='POST' action="" enctype="multipart/form-data"> {%csrf_token%}-->
+<!--{{form|crispy}}-->
+    <!--<br>-->
+<!--<input type="submit" class="btn btn-default" value="Login" /> </form>-->
+<!--</div>-->
+
+<div id="authform">
+    <h1> Welcome To Braikout! Please Log In Below </h1>
+    <img src="https://s3.us-east-2.amazonaws.com/braikoutpredictions/Images/google_logo.png" width="400" height="400" alt="google logo">
+    <h1><a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br></h1>
+</div>
+
+<script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+
+<script src="{% static 'pusher.js' %}"></script>
+<script src="{% static 'publicChart.js' %}"></script>
+<script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+<script type="text/javascript" src="{% static "js/stream.js" %}"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+</body>
+</html>
+
+<script type="text/javascript" src="{% static "js/main.js" %}"></script>

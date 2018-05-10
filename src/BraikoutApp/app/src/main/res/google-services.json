@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "132165409822",
+    "firebase_url": "https://braikout.firebaseio.com",
+    "project_id": "braikout",
+    "storage_bucket": "braikout.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132165409822:android:edf0bdb1284e6c7a",
+        "android_client_info": {
+          "package_name": "com.app.braikout.braikoutapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132165409822-fboao8pqilo6vrk5ave9sjdmd1eoj7ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVMnft6Hl77ZqF9kPRXyc_-cORIJkQL9g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

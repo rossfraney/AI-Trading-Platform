@@ -1,0 +1,329 @@
+
+body{
+
+    /*background: white url("images/lightgrey.png");*/
+    background-color: #ebe9e7;
+    /*font-family: 'Bungee Inline', cursive;*/
+    font-family: 'Carme', sans-serif;
+    overflow:auto
+}
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+.table-responsive {
+    position: absolute;
+    align-content: center;
+    z-index: -1;
+    width: auto;
+    height: auto;
+    margin-right: 20%;
+    margin-left: 20%;
+    top: 700px;
+}
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+.table {
+    position: absolute;
+    z-index: -1;
+    width:70%;
+    margin-left:15%;
+    margin-right:15%;
+    height: auto;
+    top: 800px;
+    /*border: inset darkslategray;*/
+    background-color: rgba(0, 255, 104, 0.15);
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: rgba(58, 195, 171, 0.69);
+    color: darkslategray;
+    transition: all 0.1s;
+    height: 94.5%;
+    bottom: 0;
+    float: left;
+}
+
+#sidebar .sidebar-header {
+    padding: 5px;
+    background: #000000;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: darkslategray;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #fcfffe;
+    background: #29c937;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: darkslategray;
+}
+
+.chart{
+    position: absolute;
+    top: 67px;
+    left: -750px;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1300px;
+}
+#visualise img {
+    float:right;
+}
+
+.panel {
+    background-color: rgb(50, 50, 50);
+}
+
+.panel-body {
+    padding-left: 10%;
+}
+
+.price-boxes {
+    margin-top: 10%;
+}
+
+a {
+    color: #fcfffe;
+}
+
+.price {
+    font-size: 25px;
+}
+
+.price-display {
+    font-weight: bold;
+    text-align: center;
+}
+
+span {
+    color: orange;
+}
+
+.up {
+    color: green;
+}
+
+.down {
+    color: red;
+}
+
+.exchange {
+    color: #42f492;
+}
+
+.row {
+    top: 300px;
+    left: 0;
+    right: 0;
+    margin-left: 500px;
+    margin-right: auto;
+    position: absolute;
+
+}
+
+.charts {
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin-left: 350px;
+    margin-right: auto;
+    position: fixed;
+
+}
+
+#myChart {
+    top: 100px;
+    margin-left: 350px;
+    margin-right: auto;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+
+}
+#mySentimentChart {
+    top: 100px;
+    margin-left: 950px;
+    margin-right: auto;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+}
+
+#myPredChart {
+    top: 100px;
+    margin-left: 1600px;
+    margin-right: auto;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+
+}
+.charts1 {
+    display: inline-block;
+}
+
+#chartdiv {
+    width	: 100%;
+    height	: 500px;
+    position: absolute;
+    top: 800px;
+}
+
+.stats {
+    position: absolute;
+    color: darkslategray;
+    margin-left: 1400px;
+    margin-top: 250px;
+    font-size: x-large;
+}
+.statsTradesDaily {
+    position: absolute;
+    color: darkslategray;
+    margin-left: 900px;
+    margin-top: 350px;
+    font-size: x-large;
+}
+
+#btcprice{
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+}
+
+#btcprice2{
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+}
+
+#trading{
+    min-width: 250px;
+    max-width: 250px;
+    background: grey;
+    color: #fff;
+    transition: all 0.1s;
+    height: 94.5%;
+    bottom: 0;
+    float: left;
+
+
+}
+.formtrade{
+    width: 40px;
+    height: 50px;
+
+}
+#alerts{
+    transition: all 0.1s;
+    height: 94.5%;
+    bottom: 0;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+}
+
+#auth{
+    transition: all 0.1s;
+    height: 94.5%;
+    bottom: 0;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+}
+
+
+#wallet{
+    min-width: 250px;
+    max-width: 250px;
+    background: grey;
+    color: #fff;
+    transition: all 0.1s;
+    height: 94.5%;
+    bottom: 0;
+    float: left;
+}
+
+#tv-chatwidget-66c06{
+    top: 67px;
+    position: absolute;
+    right: 0;
+    float: right;
+}
+
+#preds{
+    min-width: 250px;
+    max-width: 250px;
+    background: grey;
+    color: #fff;
+    transition: all 0.1s;
+    bottom: 0;
+    float: left;
+}
+
+#preds2{
+    min-width: 250px;
+    max-width: 250px;
+    background: grey;
+    color: #fff;
+    transition: all 0.1s;
+    bottom: 0;
+    float: left;
+}
+
+
+#tradetrends{
+    min-width: 250px;
+    max-width: 250px;
+    background: grey;
+    color:white;
+    transition: all 0.1s;
+    height: 94.5%;
+    bottom: 0;
+    float: left;
+}
+
+#authform{
+    color: darkslategray;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+}
+

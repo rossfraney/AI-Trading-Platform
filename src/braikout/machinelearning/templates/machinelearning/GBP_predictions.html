@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:text-align="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ coin }}</title>
+    <script src="https://use.fontawesome.com/a51214a446.js"></script>
+</head>
+<body>
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/style.css'%}" />
+<link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Carme" rel="stylesheet">
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class ="container-fluid">
+        <!-- logo -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#topNavBar"  aria-controls="#topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+            </button>
+            <a class="navbar-brand" href="{% url 'dashboard:index' %}"><span class="glyphicons glyphicons-lightbulb"></span>Braikout &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a class="navbar-brand" id="btcprice" href="{% url 'dashboard:index' %}">BTC: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            <a class="navbar-brand" id="ethprice" href="{% url 'dashboard:index' %}">ETH: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            <a class="navbar-brand" id="ltcprice" href="{% url 'dashboard:index' %}">LTC: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            <a class="navbar-brand" id="eurprice" href="{% url 'dashboard:index' %}">EUR: Loading...<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            {% for coin in all_coins %}
+            {% if coin.ticker == 'GBP' %}
+            <a class="navbar-brand" id="gbpprice" href="{% url 'dashboard:index' %}">GBP: {{coin.current_price}}<span class="glyphicons glyphicons-lightbulb"></span> </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</nav>
+
+<div class="wrapper">
+    <nav id="sidebar">
+        <!-- Sidebar Links -->
+        <ul class="list-unstyled components">
+            <li><!--Crypto menu -->
+                <span class="glyphicons glyphicons-snowflake"></span>
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <i class="fa fa-btc" aria-hidden="true"></i>&nbsp; Trading</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    {% for coin in all_coins %}
+                    {% if coin.is_favorite %}
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'dashboard:detail' coin.id %}"> {{coin.ticker}} </a></li>
+                    {% else %}
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'dashboard:forex' coin.id %}"> {{coin.ticker}} </a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul></li>
+            <li><!--Data Reports menu -->
+                <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false">
+                    <i class="fa fa-bell" aria-hidden="true"></i>&nbsp; Alerts</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu2">
+                    {% for coin in all_coins %}
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'dashboard:alerts' coin.id %}"> {{coin.ticker}} </a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><!--chart analysis menu -->
+                <span class="glyphicons glyphicons-stats"></span>
+                <a href="#chartTa" data-toggle="collapse" aria-expanded="false">
+                    <i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp; AI Chart Analysis </a>
+                <ul class="collapse list-unstyled" id="chartTa">
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'chartAnalysis:btc'%}">BTC</a></li>
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'chartAnalysis:ltc'%}">LTC</a></li>
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'chartAnalysis:eth'%}">ETH</a></li>
+                </ul></li>
+            <li><a href="{% url 'machinelearning:visualisation' %}">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp; AI Prediction Tool</a></li>
+            <li><!--Data Reports menu -->
+                <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false">
+                    <i class="fa fa-pie-chart" aria-hidden="true"></i>&nbsp; Data Reports</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu3">
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'analytics:intraday' %}"> Today's Trading Data </a></li>
+                    <li class="nav-link"><a class="nav-link-active" href="{% url 'analytics:daily' %}"> Historical Trading Data </a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'login' %}"</li>
+            <i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp; Logout </a></li>
+
+        </ul>
+    </nav>
+</div>
+
+<div class="charts">
+    <div class = "charts1"> <h3 style="color: white"> GBPUSD History </h3>
+        <img src="https://s3.us-east-2.amazonaws.com/braikoutpredictions/Images/gbp_all.png" alt="">
+    </div>
+    <div class = "charts1">  <h3 style="color: white"> Normalized Dataset for Current Predictive Model  </h3>
+        <img src="https://s3.us-east-2.amazonaws.com/braikoutpredictions/Images/gbp_normalized.png" alt="">
+    </div>
+    <div class = "charts1"><h3 style="color: white"> Profit with $10,000.00 initial capital </h3>
+        <img src="https://s3.us-east-2.amazonaws.com/braikoutpredictions/Images/gbp_backtest.png" alt="">
+    </div>
+
+</div>
+<div class = stats>
+    {% for val in stats %}
+    <UL>
+        <li> {{ val }} </li>
+    </UL>
+    {% endfor %}
+</div>
+
+
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+
+<script type="text/javascript" src="{% static 'js/stream.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</body>
+</html>

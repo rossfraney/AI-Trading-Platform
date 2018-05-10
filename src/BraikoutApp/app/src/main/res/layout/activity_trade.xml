@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tradeActivity"
+    android:background="@drawable/grey">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
+            android:id="@+id/TextViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trade"
+            android:textSize="10pt">
+        </TextView>
+        <Spinner
+            android:id="@+id/SpinnerFeedbackOrderType"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:entries="@array/feedbackOrdertypelist">
+        </Spinner>
+        <Spinner
+            android:id="@+id/SpinnerFeedbackType"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:entries="@array/feedbacktypelist">
+        </Spinner>
+
+        <EditText
+            android:id="@+id/EditTextFeedbackBody"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount"
+            android:inputType="textMultiLine|number"
+            android:lines="5">
+        </EditText>
+
+        <Button
+            android:id="@+id/ButtonSendFeedback"
+            android:layout_width="404dp"
+            android:layout_height="67dp"
+            android:onClick="sendFeedback"
+            android:text="Place Market Order">
+        </Button>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_trade" />
+
+</android.support.design.widget.CoordinatorLayout>

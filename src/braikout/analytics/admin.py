@@ -1,0 +1,1 @@
+""" Admin for analytics module """

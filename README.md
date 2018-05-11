@@ -10,10 +10,6 @@ Functionality:
 •	User Alert System
 •	Data Visualisation of markets, performance, and evaluation of the project
 
-## Who is the target audience?
-
-The nature of this application makes it an ideal solution for personal traders who wish to negate any disadvantage they may otherwise suffer for having a regular job in conjunction with their trading endeavours.
-
 ## This project
 This Repo has been established in order to document the development process of the above described application, as part of the CA400 final year project. 
 

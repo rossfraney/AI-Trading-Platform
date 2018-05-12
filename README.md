@@ -14,6 +14,7 @@ Functionality:
 This Repo has been established in order to document the development process of the above described application, as part of the CA400 final year project. 
 
 ## Screenshots
+![UI](http://i66.tinypic.com/wsocic.jpg)
 ![trading page](http://i65.tinypic.com/okrght.jpg)
 ![Machine learning backtesting](http://i64.tinypic.com/acbe3k.jpg)
 ![Chart Analysis](http://i63.tinypic.com/2hweemx.jpg)

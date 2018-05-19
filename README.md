@@ -9,6 +9,8 @@ Functionality:
 •	Automatic Chart Analysis
 •	User Alert System
 •	Data Visualisation of markets, performance, and evaluation of the project
+•	Android Notifications and Trading
+
 
 ## This project
 This Repo has been established in order to document the development process of the above described application, as part of the CA400 final year project. 

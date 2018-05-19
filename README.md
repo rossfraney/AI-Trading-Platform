@@ -18,4 +18,4 @@ This Repo has been established in order to document the development process of t
 ![trading page](http://i65.tinypic.com/okrght.jpg)
 ![Machine learning backtesting](http://i64.tinypic.com/acbe3k.jpg)
 ![Chart Analysis](http://i63.tinypic.com/2hweemx.jpg)
-![Android Application](http://i64.tinypic.com/2zp15d2.png)
+![Android Application](http://i68.tinypic.com/x5seww.jpg)

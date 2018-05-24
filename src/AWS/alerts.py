@@ -126,6 +126,9 @@ def notify():
             ticker = i['coin_id']
             if i['alert_below'] > check_for_break(ticker) and i['alert_below'] != 0:
                 print("ALERT BELOW TRIGGERED")
+                
+                #For Demo / Grading purposes - Change to settings variable 
+   
                 push_service = FCMNotification(api_key="AAAAHsWsHB4:APA91bGfadwyPWvdbEZK7fAnYv-v2Z7zUxlQKi3nKA1ZGxGNx4hozTWfkMvyFcinayfcym2VG1pdRXDEHG5xUItUAKHmltZSVsvpDxafZqt8zeK9f6KGxdFVuESeZuHCv6bloCU0N-3s")
                 registration_id = token
                 message_title = ticker + " Price Reached"
@@ -142,6 +145,8 @@ def notify():
             if i['alert_above'] < check_for_break(ticker) and i['alert_above'] != 0:
                 print("ALERT ABOVE TRIGGERED")
                 print(token)
+                
+                 #For Demo / Grading purposes - Change to settings variable 
                 push_service = FCMNotification(api_key="AAAAHsWsHB4:APA91bGfadwyPWvdbEZK7fAnYv-v2Z7zUxlQKi3nKA1ZGxGNx4hozTWfkMvyFcinayfcym2VG1pdRXDEHG5xUItUAKHmltZSVsvpDxafZqt8zeK9f6KGxdFVuESeZuHCv6bloCU0N-3s")
                 registration_id = token
                 message_title = ticker + " Price Reached"

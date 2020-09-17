@@ -7,13 +7,12 @@ import django
 import bitstamp.client
 from botocore.exceptions import ClientError
 from django import shortcuts
-from django.conf import settings
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'braikout.settings'
 django.setup()
 
 PUBLIC_CLIENT = bitstamp.client.Public()
-CUSTOMER_ID = '250960'
+CUSTOMER_ID = ''
 API_KEY = ''
 SECRET = ''
 

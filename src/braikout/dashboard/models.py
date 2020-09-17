@@ -4,9 +4,9 @@ from django.db import models
 
 class CoinPrices(models.Model):
     """ Coin model"""
-    ticker = models.CharField(max_length=5)  # 3 is probably enough
+    ticker = models.CharField(max_length=5)
     name = models.CharField(max_length=15, default=False)
-    current_price = models.FloatField(max_length=10)  # not sure on number here
+    current_price = models.FloatField(max_length=10)
     coin_logo = models.CharField(max_length=1000)
     predictions = models.FloatField(max_length=10)
     sentiment_score = models.FloatField(max_length=10)

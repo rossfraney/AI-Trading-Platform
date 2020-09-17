@@ -42,7 +42,7 @@ class LtcView(View):
         print(response_charts)
         item2 = response_charts['Item']
         print("Get Item Succeeded")
-        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))################################
+        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))
         jsondata_charts = json.loads(lol_charts)
         coin_trend = str(jsondata_charts['trend']).upper()
         coin_resi = str(jsondata_charts['resi']).upper()
@@ -87,7 +87,7 @@ class BtcView(View):
         print(e.response['Error']['Message'])
     else:
         item2 = response_charts['Item']
-        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))################################
+        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))
         jsondata_charts = json.loads(lol_charts)
         coin_trend = str(jsondata_charts['trend']).upper()
         coin_resi = str(jsondata_charts['resi']).upper()

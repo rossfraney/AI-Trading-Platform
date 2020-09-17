@@ -67,11 +67,7 @@ def auth(request):
 def index(request):
     """This is the view which represents the dashboard page.
     It indexes every other app on the platform"""
-    # def say(message):
-    #     pythoncom.CoInitialize()
-    #     engine = pyttsx3.init()
-    #     engine.say(message)
-    #     engine.runAndWait()
+
     username = request.user.username
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     dynamoTable = dynamodb.Table('crypto_prediction')
@@ -156,8 +152,6 @@ def index(request):
     equity = CryptoApi.get_equity()
 
     context = {'all_coins': all_coins, 'table': table, 'equity': round(equity, 2)}
-    # say("Welcome to Braikout Dashboard")
-    # say("Current total Equity is. " + str(equity) + " dollars")
     return shortcuts.render(request, 'dashboard/index.html', context)
 
 

@@ -2,46 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="970999a8-1623-41b0-96cd-d8be68454990" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.39.13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.39.32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.40.05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.40.22.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.41.28.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.41.44.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.41.56.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Proposal/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Proposal/ComponentDiagram.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/ComponentDiagram.JPG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Proposal/Proposal_Form_RevisedFor2017.doc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Proposal/Proposal_Form_Ross_Franey.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Proposal/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/documentation/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/functional-spec/FunctionalSpecification.docx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/functional-spec/FunctionalSpecification.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/functional-spec/FunctionalSpecification.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/functional-spec/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AWS/alerts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AWS/alerts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AWS/scr.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AWS/scr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/analytics/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/analytics/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/braikout/celeryconfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/braikout/celeryconfig.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/braikout/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/braikout/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/braikout/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/braikout/helpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/braikout/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/braikout/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/chartAnalysis/alerts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/chartAnalysis/alerts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/chartAnalysis/chartTA.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/chartAnalysis/chartTA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/chartAnalysis/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/chartAnalysis/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/dashboard/CryptoApi.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/dashboard/CryptoApi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/dashboard/ForexApi.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/dashboard/ForexApi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/dashboard/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/dashboard/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/dashboard/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/dashboard/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/dashboard/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/machinelearning/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/machinelearning/static/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/machinelearning/static/js/stream.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/machinelearning/static/js/stream.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/machinelearning/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/machinelearning/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/sentiment/Scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/sentiment/Scraper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/sentiment/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/sentiment/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/braikout/sentiment/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/braikout/sentiment/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.39.13.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/ui.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.39.32.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/trading.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.40.05.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/chartTa.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.40.22.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/backtest.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.41.28.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/history.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.41.44.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/images/Screenshot 2020-09-18 at 04.41.56.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/images/app.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

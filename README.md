@@ -16,11 +16,11 @@ https://www.youtube.com/watch?v=9OECMEj2i70&feature=youtu.be
  -	Android Notifications and Trading
 
 ## Screenshots
-![UI](docs/images/Screenshot 2020-09-18 at 04.39.13.png)
-![Trading Page](docs/images/Screenshot 2020-09-18 at 04.39.32.png)
-![Backtest](docs/images/Screenshot 2020-09-18 at 04.41.28.png)
-![Trading History](docs/images/Screenshot 2020-09-18 at 04.40.05.png)
-![Backtest](docs/images/Screenshot 2020-09-18 at 04.40.22.png)
-![App](docs/images/Screenshot 2020-09-18 at 04.41.56.png)
+![UI](docs/images/ui.png)
+![Trading Page](docs/images/trading.png)
+![chartTa](docs/images/chartTa.png)
+![Trading History](docs/images/history.png)
+![Backtest](docs/images/backtest.png)
+![App](docs/images/app.png)
 ![component](docs/images/ComponentDiagram.JPG)
 

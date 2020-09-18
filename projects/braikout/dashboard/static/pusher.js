@@ -8,7 +8,7 @@ var pusherConnect = (function () {
         if (_pusher){
             return _pusher
         }
-        _pusher = new Pusher('de504dc5763aeef9ff52', {
+        _pusher = new Pusher('', {
             encrypted: true,
             cluster: 'mt1'
         });

@@ -13,4 +13,4 @@
 # Ignore everything in the build directory.
 build/
 
-staticfiles/
+staticfiles/.idea

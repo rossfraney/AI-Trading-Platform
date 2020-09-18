@@ -10,16 +10,15 @@ from pyfcm import FCMNotification
 PUBLIC_CLIENT = bitstamp.client.Public()
 CUSTOMER_ID = '250960'
 API_KEY = ''
-# API_KEY =
 SECRET = ''
 
 DYNAMO_db = boto3.resource('dynamodb', region_name='us-east-2')
 DYNAMOTABLE = DYNAMO_db.Table('trade_stats')
 DYNAMOTABLE_WALLET = DYNAMO_db.Table('wallet')
 
-
 username = "ross"
 dynamoTableAuth = DYNAMO_db.Table('auth')
+
 try:
     response_auth = dynamoTableAuth.get_item(
         Key={
@@ -29,23 +28,22 @@ try:
 except ClientError as e:
     print(e.response['Error']['Message'])
     shortcuts.redirect('/dashboard/auth-keys')
-else:
-    user_auth = response_auth['Item']
-    API_KEY = user_auth['cryptoapi']
-    SECRET = user_auth['cryptosec']
+
+user_auth = response_auth['Item']
+API_KEY = user_auth['cryptoapi']
+SECRET = user_auth['cryptosec']
 
 TRADING_CLIENT = bitstamp.client.Trading(
 CUSTOMER_ID, API_KEY, SECRET)
 
-def get_balance(ticker):
 
+def get_balance(ticker):
     """Return balance of ticker passed as param"""
 
     return TRADING_CLIENT.account_balance(ticker, 'usd')
 
 
 def get_balance_eq():
-
     """ Return representation of the users current wallet """
 
     usd_balance = get_balance("btc")["usd_balance"]
@@ -60,13 +58,13 @@ def get_balance_eq():
 
 
 def check_for_break(ticker):
-    """ Checks for break in the current price in comparisont to users alerts """ 
+    """ Checks for break in the current price in comparisont to users alerts """
+
     public_client = bitstamp.client.Public()
     return float(public_client.ticker(ticker.lower(), 'usd')['last'])
 
 
 def get_equity():
-
     """ return total equity in USD"""
 
     equity = 0
@@ -80,9 +78,9 @@ def get_equity():
 
 def notify():
     """ Notifications to the App via firebase server """
+
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     dynamoTables = dynamodb.Table('alerts')
-    val = " "
     try:
         response = dynamoTables.get_item(
             Key={
@@ -111,29 +109,29 @@ def notify():
         item_btc = response_BTC['Item']
         item_eth = response_ETH['Item']
         item_ltc = response_LTC['Item']
-        print("Get Item Succeeded")
-        results = (json.dumps(item, indent=4, cls=DecimalEncoder)) 
+
+        results = (json.dumps(item, indent=4, cls=DecimalEncoder))
         results_BTC = (json.dumps(item_btc, indent=4, cls=DecimalEncoder))
         results_ETH = (json.dumps(item_eth, indent=4, cls=DecimalEncoder))
-        results_LTC = (json.dumps(item_ltc, indent=4, cls=DecimalEncoder)) 
+        results_LTC = (json.dumps(item_ltc, indent=4, cls=DecimalEncoder))
+
         jsondata_charts = json.loads(results)
         jsondata_btc = json.loads(results_BTC)
         jsondata_eth = json.loads(results_ETH)
         jsondata_ltc = json.loads(results_LTC)
+
         token = jsondata_charts['token']
         items = [jsondata_btc, jsondata_ltc, jsondata_eth]
+
         for i in items:
             ticker = i['coin_id']
             if i['alert_below'] > check_for_break(ticker) and i['alert_below'] != 0:
-                print("ALERT BELOW TRIGGERED")
-                
-                #For Demo / Grading purposes - Change to settings variable 
-   
-                push_service = FCMNotification(api_key="AAAAHsWsHB4:APA91bGfadwyPWvdbEZK7fAnYv-v2Z7zUxlQKi3nKA1ZGxGNx4hozTWfkMvyFcinayfcym2VG1pdRXDEHG5xUItUAKHmltZSVsvpDxafZqt8zeK9f6KGxdFVuESeZuHCv6bloCU0N-3s")
+                push_service = FCMNotification(api_key="")
                 registration_id = token
                 message_title = ticker + " Price Reached"
                 message_body = "Price Alert Triggered: " + ticker + " is below trigger price."
-                result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
+                result = push_service.notify_single_device(registration_id=registration_id,
+                                                           message_title=message_title, message_body=message_body)
                 dynamoTables.put_item(
                         Item = {
                             'coin_id': ticker,
@@ -142,28 +140,28 @@ def notify():
                         }
                     )
                 return result
+
             if i['alert_above'] < check_for_break(ticker) and i['alert_above'] != 0:
-                print("ALERT ABOVE TRIGGERED")
-                print(token)
-                
-                 #For Demo / Grading purposes - Change to settings variable 
-                push_service = FCMNotification(api_key="AAAAHsWsHB4:APA91bGfadwyPWvdbEZK7fAnYv-v2Z7zUxlQKi3nKA1ZGxGNx4hozTWfkMvyFcinayfcym2VG1pdRXDEHG5xUItUAKHmltZSVsvpDxafZqt8zeK9f6KGxdFVuESeZuHCv6bloCU0N-3s")
+                push_service = FCMNotification(api_key="")
                 registration_id = token
                 message_title = ticker + " Price Reached"
                 message_body = "Price Alert Triggered: " + ticker + " is above trigger price."
-                result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
+                result = push_service.notify_single_device(registration_id=registration_id,
+                                                           message_title=message_title, message_body=message_body)
                 dynamoTables.put_item(
-                        Item = {
+                        Item={
                             'coin_id': ticker,
                             'alert_above': 0,
                             'alert_below': 0
                         }
                     )
+
                 return result
         
 
 class DecimalEncoder(json.JSONEncoder):
     """ Helper class to convert a DynamoDB item to JSON """
+
     def default(self, o):
         if isinstance(o, decimal.Decimal):
             if o % 1 > 0:
@@ -174,7 +172,6 @@ class DecimalEncoder(json.JSONEncoder):
    
 
 def get_prices(coin, quote):
-
     """ Return price for the coin in param. Quote is USD by default"""
 
     return PUBLIC_CLIENT.ticker(coin, quote)
@@ -184,6 +181,7 @@ def buy_crypto(ticker, amount):
     """Purchase cryptocurrency coin.
     Params: amount to purchase, ticker of coin to purchase
     Stores trade in Dynamo DB table"""
+
     if amount == "0":
         return
 
@@ -234,9 +232,10 @@ def sell_crypto(ticker, amount):
 
 def check_for_order():
     """ Checks to see if the user has placed any orders from the mobile device """
+
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     dynamoTables = dynamodb.Table('orders')
-    val = " "
+
     try:
         response_BTC = dynamoTables.get_item(
             Key={
@@ -259,15 +258,17 @@ def check_for_order():
         jsondata_btc = []
         jsondata_eth = []
         jsondata_ltc = []
-        print(len(response_BTC))
+
         if len(response_BTC) > 1:
             item_btc = response_BTC['Item']
             results_BTC = (json.dumps(item_btc, indent=4, cls=DecimalEncoder))
             jsondata_btc = json.loads(results_BTC)
+
         if len(response_ETH) > 1:
             item_eth = response_ETH['Item']
             results_ETH = (json.dumps(item_eth, indent=4, cls=DecimalEncoder))
             jsondata_eth = json.loads(results_ETH)
+
         if len(response_LTC) > 1:
             item_ltc = response_LTC['Item']
             results_LTC = (json.dumps(item_ltc, indent=4, cls=DecimalEncoder)) 
@@ -308,12 +309,12 @@ def check_for_order():
                             'amount':val
                             })
 
-
 def main():
     """ Main """ 
 
     notify()
     check_for_order()
+
 
 if __name__ == '__main__':
     main()

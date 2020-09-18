@@ -32,6 +32,3 @@ channel4.bind('trade', function (data) {
 channel4.bind('pusher:subscription_succeeded', function (data) {
     console.log("Subscribed correctly EUR")
 });
-//    var channel2 = pusher.subscribe('live_ticker');
-//    var channel3 = pusher.subscribe('live_tickers');
-// var channel4 = pusher.subscribe('prices__btc');

@@ -8,13 +8,11 @@ import oandapyV20.endpoints.positions as positions
 import oandapy
 
 import v20
-account_id = '101-004-8286259-001'
+account_id = ''
 oanda = oandapy.API(
     environment="practice",
-    access_token="8b5e8381818c621dc3b47f742c0e33b8-c04c9c6a3a7f5a066dbec1da5b0de23d")
-client = oandapyV20.API(
-    '8b5e8381818c621dc3b47f742c0e33b8-c04c9c6a3a7f5a066dbec1da5b0de23d'
-)
+    access_token="")
+client = oandapyV20.API('')
 
 dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
 dynamoTable = dynamodb.Table('trade_stats')
@@ -22,7 +20,7 @@ dynamoTable = dynamodb.Table('trade_stats')
 api = v20.Context(
     'api-fxpractice.oanda.com',
     '443',
-    token='8b5e8381818c621dc3b47f742c0e33b8-c04c9c6a3a7f5a066dbec1da5b0de23d')
+    token='')
 
 
 def buy_order(inst, units, ticker):

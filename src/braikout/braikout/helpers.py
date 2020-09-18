@@ -11,5 +11,4 @@ def get_coin_price(coin_name):
         coin_name: last_price
     })
 
-    print(data)
     return data

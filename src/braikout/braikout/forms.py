@@ -1,28 +1,34 @@
 from django import forms
+from django.utils.safestring import mark_safe
 from django.contrib.auth import (
     authenticate,
     get_user_model,
     login,
     logout,
 )
-from django.utils.safestring import mark_safe
 
 User = get_user_model()
+
 
 class BuyForm(forms.Form):
     post = forms.FloatField(label='')
 
+
 class SellForm(forms.Form):
     post = forms.FloatField(label='')
+
 
 class AlertAboveForm(forms.Form):
     post = forms.FloatField(label='')
 
+
 class AlertBelowForm(forms.Form):
     post = forms.FloatField(label='')
 
+
 class AlertSRForm(forms.Form):
     post = forms.FloatField(label='')
+
 
 class AuthForm(forms.Form):
     post = forms.CharField(label=mark_safe("<p colour='white'> Crypto API </p>"))

@@ -28,9 +28,7 @@ def get_stats(coin_id_tag):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print(response)
         item = response['Item']
-        print("Get Item Succeeded")
         result = (json.dumps(item, indent=4, cls=DecimalEncoder))
         jsondata = json.loads(result)
         avg_loss = str(jsondata['avg_loss_trade'])
@@ -121,7 +119,6 @@ class ChartData(APIView):
             item = (sorted(
                 item, key=lambda x: datetime.datetime.strptime(
                     x['date'], '%Y-%m-%d')))
-            print("Get Item Succeeded")
             for i in item:
                 for key, val in i.items():
                     if key == 'date':
@@ -138,10 +135,6 @@ class ChartData(APIView):
                             ltc_dict.update({key: val})
 
             dates_daily_pred.append("NEW")
-            print(btc_dict)
-            print(eth_dict)
-            print(ltc_dict)
-
             btc_reals = (btc_dict['actual'].replace('[', ""))
             btc_reals = btc_reals.replace(']', "").split()
             eth_reals = (eth_dict['actual'].replace('[', ""))
@@ -149,9 +142,6 @@ class ChartData(APIView):
             ltc_reals = (ltc_dict['actual'].replace('[', ""))
             ltc_reals = ltc_reals.replace(']', "").split()
 
-            print(btc_reals)
-            print(eth_reals)
-            print(ltc_reals)
 
             global btc_prof, eth_prof, ltc_prof, dlen
             btc_preds = (btc_dict['preds'].replace('[', ""))

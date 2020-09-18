@@ -12,7 +12,6 @@ from dashboard.models import CoinPrices
 def intraday(request):
     """ View for intra-day trades to be visualised """
     all_coins = CoinPrices.objects.all()
-
     context = {'all_coins': all_coins}
     return render(request, 'analytics/analytics.html', context)
 
@@ -26,21 +25,19 @@ def daily(request):
 
 class ChartData(APIView):
     """ Chart data for visualisation of trades """
+
     def get(self, request, format=None):
         """ getter for Ajax function to retrieve this data """
-        now = datetime.now()
+
         dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
         dynamoTable = dynamodb.Table('trade_stats')
         dynamoTableDaily = dynamodb.Table('daily_trade_stats')
-        print(now.strftime("%Y-%m-%d"))
-        d = str(now.strftime("%Y-%m-%d"))
         try:
             response = dynamoTable.scan()
             daily_response = dynamoTableDaily.scan()
         except ClientError as e:
             print(e.response['Error']['Message'])
         else:
-            print(response)
             item = response['Items']
             daily_item = daily_response['Items']
             daily_item = (sorted(daily_item,

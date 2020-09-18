@@ -36,41 +36,37 @@ else:
     API_KEY = user_auth['cryptoapi']
     SECRET = user_auth['cryptosec']
 
-# SECRET =
-
 TRADING_CLIENT = bitstamp.client.Trading(
     CUSTOMER_ID, API_KEY, SECRET)
 
 
 def get_volume(ticker):
-
     """Return volume of ticker passed as param"""
 
     return TRADING_CLIENT.ticker(ticker, "usd")['volume']
 
 
 def get_balance(ticker):
-
     """Return balance of ticker passed as param"""
 
     return TRADING_CLIENT.account_balance(ticker, 'usd')
 
 
 def get_equity():
-
     """ return total equity in USD"""
 
     equity = 0
     wallet = get_balance_eq()
+
     for key, val in wallet.items():
         if key != 'usd':
-            equity = equity + (float(val) * float(get_prices(key, 'usd')['last']))
+            equity += (float(val) * float(get_prices(key, 'usd')['last']))
+
     equity = equity + float(get_balance("btc")["usd_balance"])
     return Decimal(str(equity))
 
 
 def buy_crypto(amount, ticker):
-
     """Purchase cryptocurrency coin.
     Params: amount to purchase, ticker of coin to purchase
     Stores trade in Dynamo DB table"""
@@ -95,7 +91,6 @@ def buy_crypto(amount, ticker):
 
 
 def sell_crypto(amount, ticker):
-
     """Sell cryptocurrency coin.
     Params: amount to sell, ticker of coin to sell
     Stores trade in Dynamo DB table"""
@@ -119,14 +114,12 @@ def sell_crypto(amount, ticker):
 
 
 def get_prices(coin, quote):
-
     """ Return price for the coin in param. Quote is USD by default"""
 
     return PUBLIC_CLIENT.ticker(coin, quote)
 
 
 def get_balance_eq():
-
     """ Return representation of the users current wallet """
 
     usd_balance = get_balance("btc")["usd_balance"]

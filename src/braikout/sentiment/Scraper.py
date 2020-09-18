@@ -4,10 +4,10 @@ import tweepy
 from textblob import TextBlob
 from tweepy import OAuthHandler
 
-ckey = "0DfRtRYGc1PuHb3CrDakpG30Y"
-csecret = "7TDvdmlOZmnEkOQsa6Cak2d2pC8g6SMLUecI6dh9TXsFsKg3T0"
-atoken = "2255066646-vUbXE5luGs53l3vXafrkPMKLSjpwl6PU3y2IfPP"
-asecret = "T3xA2EnoLLjCIOYZ7jFRVcILvoR1qJCzlr6rJiA2jcVZv"
+ckey = ""
+csecret = ""
+atoken = ""
+asecret = ""
 
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
@@ -23,7 +23,7 @@ def clean_tweet(tweet):
 def get_tweet_sentiment(tweet):
     """ Utility function to classify sentiment of passed tweet
     using textblob's sentiment method """
-    # create TextBlob object of passed tweet text
+
     analysis = TextBlob(clean_tweet(tweet))
     if analysis.sentiment.polarity > 0.75:
         return 'Extremely positive'
@@ -41,9 +41,7 @@ def get_tweet_sentiment(tweet):
 
 def get_tweets(query, count):
     """ Main function to fetch tweets and parse them. """
-    # empty list to store parsed tweets
     tweets = []
-
     try:
         tweet_nums = api.search(q=query, count=count)
         for tweet in tweet_nums:
@@ -56,7 +54,6 @@ def get_tweets(query, count):
         return tweets
 
     except tweepy.TweepError as e:
-        # print error (if any)
         print("Error : " + str(e))
 
 
@@ -69,7 +66,6 @@ def analyze_tweets_numerical(search_term):
     ntweets = [tweet for tweet in tweets if tweet['sentiment'] == "Neutral"]
     negtweets = [tweet for tweet in tweets if tweet['sentiment'] == "Negative"]
 
-    # picking positive tweets from tweets
     epositive = (100 * len(eptweets) / len(tweets))
     vpositive = (100 * len(vptweets) / len(tweets))
     positive = (100 * len(ptweets) / len(tweets))

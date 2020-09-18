@@ -5,15 +5,14 @@ import boto3 as boto3
 from botocore.exceptions import ClientError
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
-from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from dashboard.models import CoinPrices
 from chartAnalysis import chartTA
 from dashboard.views import DecimalEncoder
-from dashboard import CryptoApi as crypto
 
 coinlogo = ""
+
 
 class LtcView(View):
     global coin_support, coin_resi, coin_trend, modal
@@ -25,10 +24,6 @@ class LtcView(View):
         if c.ticker == 'LTC':
             coinlogo = c.coin_logo
 
-    #coin_id_tag = coin.ticker.lower()
-    # coin_trend = ""
-    # coin_resistance = ""
-    # coin_support = ""
     now = datetime.datetime.now()
     try:
         response_charts = dynamoTables.get_item(
@@ -39,10 +34,8 @@ class LtcView(View):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print(response_charts)
         item2 = response_charts['Item']
-        print("Get Item Succeeded")
-        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))################################
+        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))
         jsondata_charts = json.loads(lol_charts)
         coin_trend = str(jsondata_charts['trend']).upper()
         coin_resi = str(jsondata_charts['resi']).upper()
@@ -66,7 +59,6 @@ class LtcView(View):
         return render(request, 'chartAnalysis/ltc_charts.html', self.context)
 
 
-#BTC
 class BtcView(View):
     global coin_support, coin_resi, coin_trend, modal
     all_coins = CoinPrices.objects.all()
@@ -87,7 +79,7 @@ class BtcView(View):
         print(e.response['Error']['Message'])
     else:
         item2 = response_charts['Item']
-        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))################################
+        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))
         jsondata_charts = json.loads(lol_charts)
         coin_trend = str(jsondata_charts['trend']).upper()
         coin_resi = str(jsondata_charts['resi']).upper()
@@ -110,6 +102,7 @@ class BtcView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'chartAnalysis/btc_charts.html', self.context)
 
+
 class EthView(View):
     global coin_support, coin_resi, coin_trend, modal
     all_coins = CoinPrices.objects.all()
@@ -119,10 +112,7 @@ class EthView(View):
     for c in all_coins:
         if c.ticker == 'ETH':
             coinlogo = c.coin_logo
-    #coin_id_tag = coin.ticker.lower()
-    # coin_trend = ""
-    # coin_resistance = ""
-    # coin_support = ""
+
     now = datetime.datetime.now()
     try:
         response_charts = dynamoTables.get_item(
@@ -133,10 +123,8 @@ class EthView(View):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print(response_charts)
         item2 = response_charts['Item']
-        print("Get Item Succeeded")
-        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))################################
+        lol_charts = (json.dumps(item2, indent= 4, cls=DecimalEncoder))
         jsondata_charts = json.loads(lol_charts)
         coin_trend = str(jsondata_charts['trend']).upper()
         coin_resi = str(jsondata_charts['resi']).upper()
@@ -171,10 +159,8 @@ class ChartData(APIView):
         ltc_chart = chartTA.get_ltc_chart()
         btc_chart = chartTA.get_btc_chart()
         eth_chart = chartTA.get_eth_chart()
-        print(type(ltc_chart))
         for c in self.all_coins:
             default_items.append(int(round(c.current_price)))
-            print(default_items)
         data = {
             "labels": labels,
             "default": default_items,

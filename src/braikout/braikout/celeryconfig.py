@@ -4,9 +4,6 @@ from celery import Celery
 from celery.utils.log import get_task_logger
 from decouple import config
 from django.conf import settings
-from celery.schedules import crontab
-
-
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'braikout.settings')
 

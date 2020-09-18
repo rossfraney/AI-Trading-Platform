@@ -3,6 +3,7 @@ from django.contrib.auth import (
     logout,
 )
 
+
 def login_view(request):
     template_name = 'braikout/login.html'
     return render(request, template_name, {})

@@ -310,7 +310,6 @@ df_trade.drop(df_trade.index[len(df_trade)-1], inplace=True)
 df_trade['prof'] = df_trade.apply(lambda row: get_stats(row), axis=1)
 df_trade['equity'] = df_trade['prof'].cumsum()
 
-print(df_trade.tail())
 df_trade.plot(y='equity', figsize=(10, 4), title='$10k Backtest')
 plt.xlabel('Trades')
 plt.ylabel('Equity (USD)')
@@ -336,7 +335,7 @@ f.close()
 
 
 # # Calculate summary of trades
-#
+
 gbp_n_win_trades = float(df_trade[df_trade['prof']>0.0]['prof'].count())
 gbp_n_los_trades = float(df_trade[df_trade['prof']<0.0]['prof'].count())
 gbp_net_profit = str("Net Profit            : $%.2f" % df_trade.tail(1)['equity'])

@@ -39,10 +39,8 @@ def auth(request):
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     dynamoTables = dynamodb.Table('auth')
     if auth_key.is_valid():
-        text = auth_key.cleaned_data['post']
-        text1 = auth_key.cleaned_data['post1']
-        text2 = auth_key.cleaned_data['post2']
-        text3 = auth_key.cleaned_data['post3']
+        text, text1, text2, text3 = [auth_key.cleaned_data[f'post{i}'] for i in range(4)]
+
         dynamoTables.put_item(
             Item={"username": request.user.username,
                     "cryptoapi": text,
@@ -85,7 +83,8 @@ def index(request):
         try:
             from json.decoder import JSONDecodeError as Js_error
         except ImportError:
-            Js_error = ValueError
+            raise ValueError
+
         if coin_id < 5:
             prices = CryptoApi.get_prices(str(coin.ticker), "usd")
             last_price = prices['last']

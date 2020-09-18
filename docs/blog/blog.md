@@ -11,8 +11,6 @@ This blog has been created with the intention of documenting the procedure of th
 Braikout is a forex and cryptocurrency trading platform which will make use of machine learning, chart analysis and sentiment analysis to predict the price action, 
 potential buy/sell signals, and market sentiment of multiple digital and traditional currency markets. 
 
-A blog had initially been set up on WIX.com, which can be found [here](https://rathnewross.wixsite.com/website), and I will continue to maintain that blog as my own personal documentation well as this one.
-
 
 
 ## My Second Blog Entry

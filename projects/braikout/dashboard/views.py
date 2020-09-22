@@ -1,4 +1,3 @@
-""" Views for trading and dashboard page """
 import datetime
 import decimal
 import json
@@ -8,8 +7,6 @@ import django_tables2 as tables
 import django.shortcuts as shortcuts
 
 from botocore.exceptions import ClientError
-from rest_framework.generics import UpdateAPIView
-from rest_framework.response import Response
 from forex_python.converter import CurrencyRates
 from dashboard import CryptoApi, ForexApi
 from sentiment import Scraper
@@ -21,6 +18,7 @@ from .models import CoinPrices
 
 class DecimalEncoder(json.JSONEncoder):
     """ Decimal encoder default class """
+
     def default(self, o):
         """Helper class to convert a DynamoDB item to JSON."""
         if isinstance(o, decimal.Decimal):
@@ -31,7 +29,12 @@ class DecimalEncoder(json.JSONEncoder):
 
 
 def auth(request):
-    """ Takes user input for auth """
+    """
+    Takes user input for auth
+
+    :param request: Django request
+    :return: redirection to home page
+    """
     auth_key = AuthForm(request.POST, prefix='cryp_auth')
     dynamo_db = boto3.resource('dynamodb', region_name='us-east-2')
     dynamo_tables = dynamo_db.Table('auth')
@@ -40,10 +43,10 @@ def auth(request):
 
         dynamo_tables.put_item(
             Item={"username": request.user.username,
-                    "cryptoapi": text,
-                    "cryptosec": text1,
-                    "fxapi": text2,
-                    "fxsec": text3,
+                  "cryptoapi": text,
+                  "cryptosec": text1,
+                  "fxapi": text2,
+                  "fxsec": text3,
                   }
         )
         return shortcuts.redirect("/")
@@ -58,10 +61,24 @@ def auth(request):
 
 
 def is_crypto(coin_id):
+    """
+    Determine id a coin is crypto or forex based on the DB index
+
+    :param coin_id: id of coin
+    :return: Boolean True/False
+    """
     return coin_id < 5
 
 
 def handle_auth(request, dynamo_db):
+    """
+    Ensure user is authenticated / exists in the dynamoDB
+
+    :param request: Django Request
+    :param dynamo_db: Dynamo DB object
+
+    :return: Authenticated user
+    """
     username = request.user.username
     dynamo_table_auth = dynamo_db('auth')
     try:
@@ -75,6 +92,19 @@ def handle_auth(request, dynamo_db):
 
 
 def get_response_data(coin, coin_id, table):
+    """
+    Get response data from DynamoDB
+
+    :param coin: Coin object
+    :type coin: Coin
+    :param coin_id: id of coin in Dynamo (UID)
+    :type coin_id: int
+    :param table: Dynamo Table to search in
+    :type table: DynamoDBTable
+
+    :return: data for charting
+    :rtype: Json
+    """
     single_prediction_table = table('crypto_prediction')
     all_predictions_table = table('crypto_predictions')
     coin_id_tag = coin.ticker.lower()
@@ -101,6 +131,15 @@ def get_response_data(coin, coin_id, table):
 
 
 def get_trading_data(coin_id_tag):
+    """
+    Get data for trading predictions in DynamoDB
+
+    :param coin_id_tag: UID of coin in DB
+    :type coin_id_tag: int
+
+    :return: coin data
+    :rtype: dict
+    """
     dynamo_db = boto3.resource('dynamodb', region_name='us-east-2')
     dynamo_tables = dynamo_db.Table('crypto_predictions')
     try:
@@ -117,6 +156,15 @@ def get_trading_data(coin_id_tag):
 def update_current_trend(coin, coin_id, json_data, json_data_charts):
     """
     Updates db with current trend state
+
+    :param coin: Coin object
+    :type coin: Coin
+    :param coin_id: UID of coin in DB
+    :type coin_id: int
+    :param json_data: Data to be parsed
+    :type json_data: Json
+    :param json_data_charts: Chart data to be parsed
+    :type: json_chart_data: Json
     """
     if coin_id < 4:
         pred_price = float("{0:.2f}".format(json_data['pred']))
@@ -134,8 +182,13 @@ def update_current_trend(coin, coin_id, json_data, json_data_charts):
 
 
 def index(request):
-    """This is the view which represents the dashboard page.
-    It indexes every other app on the platform"""
+    """
+    This is the view which represents the dashboard page.
+    It indexes every other app on the platform
+
+    :param request: Django request
+    :return: redirect to dashboard
+    """
 
     table = boto3.resource('dynamodb', region_name='us-east-2').Table
     handle_auth(request, table)
@@ -170,50 +223,21 @@ def index(request):
                              'equity': round(CryptoApi.get_equity(), 2)})
 
 
-def get_support_res_from_json(json_data_charts):
-    coin_resistance = str(json_data_charts['resi'])
-    coin_support = str(json_data_charts['support'])
-    coin_resistance_2 = str(json_data_charts['resi2'])
-    coin_support2 = str(json_data_charts['support2'])
-    return [coin_resistance, coin_support, coin_resistance_2, coin_support2]
-
-
-def make_buy(buy, coin, dynamo_table):
-    if buy.is_valid():
-        text = buy.cleaned_data['post']
-        buy = BuyForm()
-        CryptoApi.buy_crypto(text, coin.ticker)
-        update_balance_table(dynamo_table)
-
-
-def make_sell(sell, coin, dynamo_table):
-    if sell.is_valid():
-        text = sell.cleaned_data['post']
-        sell = SellForm()
-        CryptoApi.sell_crypto(text, coin.ticker)
-        update_balance_table(dynamo_table)
-
-
-def update_balance_table(dynamo_table):
-    time.sleep(5)
-    wallet = CryptoApi.get_balance_eq()
-    for key, val in wallet.items():
-        dynamo_table.put_item(
-            Item={
-                'coin_id': key,
-                'amount': val
-            }
-        )
-
-
 def detail(request, coin_id):
+    """
+    This is the view corresponding to the cryptocurrency trading page,
+    and details of the analysis the platform provides. I.e, Price predictions,
+    chart analysis results, and sentiment analysis
 
-    """ This is the view corresponding to the cryptocurrency trading page,
-     and details of the analysis the platform provides. I.e, Price predictions,
-     chart analysis results, and sentiment analysis """
+    :param request: Django request
+    :type request: request
+    :param coin_id: UID of coin in DB
+    :type coin_id: int
+
+    :return: redirect to dashboard detail page
+    """
 
     coin = shortcuts.get_object_or_404(CoinPrices, pk=coin_id)
-    all_coins = CoinPrices.objects.all()
     coin_id_tag = coin.ticker.lower()
 
     if int(coin_id) >= 4:
@@ -221,15 +245,15 @@ def detail(request, coin_id):
 
     item = get_trading_data(coin_id_tag)
     json_data_charts = json.loads(json.dumps(item, indent=4, cls=DecimalEncoder))
-    trend_data = get_support_res_from_json(json_data_charts)
+    trend_data = _get_support_res_from_json(json_data_charts)
 
     price = CryptoApi.get_prices(coin.ticker, 'usd')['last']
     if price > trend_data[0]:
         CoinPrices.objects.filter(pk=coin_id).update(trend="Bullish")
     if price < trend_data[1]:
         CoinPrices.objects.filter(pk=coin_id).update(trend="Bearish")
-    all_coins = CoinPrices.objects.all()
 
+    all_coins = CoinPrices.objects.all()
     wallet = CryptoApi.get_balance_eq()
 
     buy = BuyForm(request.POST, prefix='buy')
@@ -238,8 +262,8 @@ def detail(request, coin_id):
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     dynamo_table = dynamodb.Table('wallet')
 
-    make_buy(buy, coin, dynamo_table)
-    make_sell(sell, coin, dynamo_table)
+    _make_buy(buy, coin, dynamo_table)
+    _make_sell(sell, coin, dynamo_table)
 
     pos_neg_next_day = coin.current_price - coin.predictions
 
@@ -253,88 +277,111 @@ def detail(request, coin_id):
     })
 
 
-# TODO Next is Forex Refactor
 def forex(request, coin_id):
-    """ This is the view corresponding to the FX trading page,
+    """
+    This is the view corresponding to the FX trading page,
     and details of the analysis the platform provides. I.e, Price predictions,
-    chart analysis results, and sentiment analysis """
+    chart analysis results, and sentiment analysis
+
+    :param request: request from Django
+    :type request: request
+
+    :param coin_id: uid of coin in DB
+    :type coin_id: int
+
+    :return redirect to forex trading page
+    """
     coin = shortcuts.get_object_or_404(CoinPrices, pk=coin_id)
     all_coins = CoinPrices.objects.all()
 
-    wallet = CryptoApi.get_balance_eq()
-    text = 0.0
+    trade_amount = 0.0
     buy = BuyForm(request.POST, prefix='buy')
     sell = SellForm(request.POST, prefix='sell')
+
     if buy.is_valid():
-        text = buy.cleaned_data['post']
-        buy = BuyForm()
-        ForexApi.buy_order(str(coin.ticker + "_USD"), text, coin.ticker)
-        wallet = CryptoApi.get_balance_eq()
-        time.sleep(5)
-
+        trade_amount = _make_buy_fx(buy, coin)
     if sell.is_valid():
-        text = sell.cleaned_data['post']
-        sell = SellForm()
-        ForexApi.sell_order(str(coin.ticker + "_USD"))
-        wallet = CryptoApi.get_balance_eq()
-        time.sleep(5)
+        trade_amount = _make_sell_fx(sell, coin)
 
-    dict = {s for s in ForexApi.get_pos()['positions']}
-    instrument = None
-    units = None
-    if 'instrument' in dict:
-        instrument = dict['instrument']
-        units = dict['long']['units']
+    fx_positions = dict({s for s in ForexApi.get_pos()['positions']})
+    instrument = fx_positions['instrument'], units = fx_positions['long']['units'] \
+        if 'instrument' in fx_positions else None
+
+    wallet = CryptoApi.get_balance_eq()
+    time.sleep(5)
 
     return shortcuts.render(request, 'dashboard/forex.html', {
         'coin': coin, 'all_coins': all_coins,
         'wallet': wallet, 'b_form': BuyForm(prefix='buy'),
-        's_form': SellForm(prefix='sell'), 'trade_amount': text,
+        's_form': SellForm(prefix='sell'), 'trade_amount': trade_amount,
         'instrument': instrument, 'units': units
     })
 
 
-def store_alert_above(text, ticker):
-    """ Stores user alerts above current price in Dynamo DB table"""
+def store_alert_above(threshold, ticker):
+    """
+    Stores user alerts above current price in Dynamo DB table
+
+    :param threshold: Number after which user wishes to be alerted
+    :type threshold: str
+    :param ticker: ticker to alert for (eg 'BTCUSD')
+    :type ticker: str
+    """
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     dynamoTable = dynamodb.Table('alerts')
     dynamoTable.put_item(
         Item={
             'coin_id': ticker,
-            'alert_above': decimal.Decimal(str(text))
+            'alert_above': decimal.Decimal(str(threshold))
         }
     )
 
 
-def store_alert_below(text, ticker):
-    """ Stores user alerts below current price in Dynamo DB table"""
+def store_alert_below(threshold, ticker):
+    """
+    Stores user alerts above current price in Dynamo DB table
+
+    :param threshold: Number under which user wishes to be alerted
+    :type threshold: str
+    :param ticker: ticker to alert for (eg 'BTCUSD')
+    :type ticker: str """
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     dynamoTable = dynamodb.Table('alerts')
     dynamoTable.put_item(
         Item={
             'coin_id': ticker,
-            'alert_below': decimal.Decimal(str(text))
+            'alert_below': decimal.Decimal(str(threshold))
         }
     )
 
 
 def alerts(request, coin_id):
-    """ Takes user input for alerts """
+    """
+    Takes user input for alerts
+
+    :param request: Django Request
+    :type request: request
+    :param coin_id: UID of coin in DB
+    :type coin_id: int
+
+    :return: redirect to alerts page
+    """
     coin = shortcuts.get_object_or_404(CoinPrices, pk=coin_id)
     all_coins = CoinPrices.objects.all()
 
     alert_above = AlertAboveForm(request.POST, prefix='above')
     alert_below = AlertBelowForm(request.POST, prefix='below')
 
+    threshold = None
     if alert_above.is_valid():
-        text = alert_above.cleaned_data['post']
-        alert_above = AlertAboveForm
-        store_alert_above(text, coin.ticker)
+        threshold = alert_above.cleaned_data['post']
 
     if alert_below.is_valid():
-        text = alert_below.cleaned_data['post']
-        alert_below = AlertBelowForm
-        store_alert_below(text, coin.ticker)
+        threshold = alert_below.cleaned_data['post']
+
+    alert_below = AlertBelowForm
+    if threshold:
+        store_alert_below(threshold, coin.ticker)
 
     return shortcuts.render(request, 'dashboard/alerts.html', {
         'coin': coin, 'all_coins': all_coins,
@@ -342,61 +389,61 @@ def alerts(request, coin_id):
         'b_form': AlertBelowForm(prefix='below')})
 
 
-class ChartData(UpdateAPIView):
-    """ Chart data for JSCharts """
-    def get(self, request, format=None):
-        """ Returns data from view to Ajax function
-        for visual representation """
-        all_coins = CoinPrices.objects.all()
-        wallet = CryptoApi.get_balance_eq()
-        labels = list(wallet.keys())
-        value = list(wallet.values())
-        senti_labels = []
-        pred_labels = []
-        senti_values = []
-        predicted_change = []
+def _get_support_res_from_json(json_data_charts: dict) -> list:
+    coin_resistance = str(json_data_charts['resi'])
+    coin_support = str(json_data_charts['support'])
+    coin_resistance_2 = str(json_data_charts['resi2'])
+    coin_support2 = str(json_data_charts['support2'])
+    return [coin_resistance, coin_support, coin_resistance_2, coin_support2]
 
-        for coin in all_coins:
-            senti_labels.append(str(coin.ticker))
-            if coin.is_favorite and coin.ticker != 'EUR':
-                pred_labels.append(str(coin.ticker))
-            senti_values.append(float(coin.sentiment_score))
-            a = coin.predictions
-            c = coin.current_price
-            if a == c:
-                if coin.is_favorite and coin.ticker != 'EUR':
-                    predicted_change.append(0)
-            price_check = (abs(float((a - c) / c))) * 100
-            if a > c:
-                current_biggest_diff = price_check
-            else:
-                current_biggest_diff = -1 * price_check
-            if coin.is_favorite and coin.ticker != 'EUR':
-                predicted_change.append(current_biggest_diff)
 
-        length = len(labels)
-        i = 0
-        while i < length:
-            if labels[i] == 'usd':
-                i = i + 1
-            else:
-                prices = CryptoApi.get_prices(labels[i], "usd")
-                last_price = prices['last']
-                value[i] = float(value[i]) * float(last_price)
-                i = i + 1
-        data = {
-            "labels": labels,
-            "senti_labels": senti_labels,
-            "pred_labels": pred_labels,
-            "default": value,
-            "senti_default": senti_values,
-            "predicted_change": predicted_change,
-        }
-        return Response(data)
+def _make_buy(buy, coin, dynamo_table):
+    if buy.is_valid():
+        text = buy.cleaned_data['post']
+        buy = BuyForm()
+        CryptoApi.buy_crypto(text, coin.ticker)
+        _update_balance_table(dynamo_table)
+
+
+def _make_buy_fx(buy, coin):
+    if buy.is_valid():
+        trade_amount = buy.cleaned_data['post']
+        buy = BuyForm()
+        ForexApi.buy_order(str(coin.ticker + "_USD"), trade_amount, coin.ticker)
+        return trade_amount
+
+
+def _make_sell(sell, coin, dynamo_table):
+    if sell.is_valid():
+        text = sell.cleaned_data['post']
+        sell = SellForm()
+        CryptoApi.sell_crypto(text, coin.ticker)
+        _update_balance_table(dynamo_table)
+
+
+def _make_sell_fx(sell, coin):
+    if sell.is_valid():
+        trade_amount = sell.cleaned_data['post']
+        sell = SellForm()
+        ForexApi.sell_order(str(coin.ticker + "_USD"))
+        return trade_amount
+
+
+def _update_balance_table(dynamo_table):
+    time.sleep(5)
+    wallet = CryptoApi.get_balance_eq()
+    for key, val in wallet.items():
+        dynamo_table.put_item(
+            Item={
+                'coin_id': key,
+                'amount': val
+            }
+        )
 
 
 class CoinTable(tables.Table):
     """ Table for dashboard """
+
     class Meta:
         model = CoinPrices
         row_attrs = {'data-id': lambda coinprices: coinprices.ticker.lower()}

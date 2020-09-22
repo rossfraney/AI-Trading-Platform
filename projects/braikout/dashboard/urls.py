@@ -1,7 +1,7 @@
 """ Urls for Dashboard module """
 from django.conf.urls import url
 from . import views
-from .views import ChartData
+from .chart_data import ChartData
 
 app_name = 'dashboard'
 urlpatterns = [

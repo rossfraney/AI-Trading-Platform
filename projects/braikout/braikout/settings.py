@@ -11,21 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from decouple import config
 
-import asgi_redis
-
-from celery import Celery
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_DIR = os.path.join(BASE_DIR, "dashboard/static/dashboard/images/")
 MEDIA_DIR_ML = os.path.join(BASE_DIR, "machinelearning/static/images/")
-
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')4eprq*&%^)ui^rs_hv707q)9k_r71s#0d^ivac2()$h4@5=_h'
@@ -34,9 +23,6 @@ SECRET_KEY = ')4eprq*&%^)ui^rs_hv707q)9k_r71s#0d^ivac2()$h4@5=_h'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django_tables2',
@@ -57,17 +43,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'social_django'
 ]
-
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'asgi_redis.RedisChannelLayer',
-#         'CONFIG': {
-#             'hosts': [os.environ.get('REDIS_URL', config('REDISCLOUD_URL', default='redis://localhost:6379'))],
-#             'capacity': 100,
-#         },
-#         'ROUTING': 'braikout.routing.channel_routing',
-#     },
-# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,19 +78,12 @@ WSGI_APPLICATION = 'braikout.wsgi.application'
 ASGI_APPLICATION = 'braikout.routing.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -133,17 +101,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId',  # for Google authentication
-    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '769249180998-vibu2cg8h0njv2cr6ong3ii8pn5011ir.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '1MOxv7MnE6VJbI5ZsMASs3vu'
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -158,16 +123,8 @@ USE_TZ = True
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/dashboard/'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CELERY_IMPORTS = ('braikout.tasks',)
-
-# try:
-#     from .local_settings import * # noqa
-# except ImportError:
-#     pass
